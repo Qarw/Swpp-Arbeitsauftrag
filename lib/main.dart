@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tägliche Wasserzufuhr',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 20, 54, 204)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Täglicher Wasserstand'),
@@ -30,11 +31,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _waterIntake = 0; // Start bei 0 ml
+  int _waterIntake = 0;
 
   void _incrementWaterIntake() {
     setState(() {
-      _waterIntake += 250; // 250 ml pro Klick
+      _waterIntake += 250;
+    });
+  }
+
+  void _resetWaterIntake() {
+    setState(() {
+      _waterIntake = 0;
     });
   }
 
@@ -50,14 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text('Deine tägliche Wasseraufnahme:'),
             Text(
-              '$_waterIntake ml', // Anzeige der ml
+              '$_waterIntake ml',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _resetWaterIntake,
+              child: const Text('Zurücksetzen'),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementWaterIntake, // Funktion zur Wasseraufnahme
+        onPressed: _incrementWaterIntake,
         tooltip: 'Wasser hinzufügen',
         child: const Icon(Icons.add),
       ),
