@@ -30,6 +30,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _waterIntake = 0; // Start bei 0 ml
+
+  void _incrementWaterIntake() {
+    setState(() {
+      _waterIntake += 250; // 250 ml pro Klick
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('Deine tägliche Wasseraufnahme:'),
+          children: <Widget>[
+            const Text('Deine tägliche Wasseraufnahme:'),
+            Text(
+              '$_waterIntake ml', // Anzeige der ml
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementWaterIntake, // Funktion zur Wasseraufnahme
+        tooltip: 'Wasser hinzufügen',
+        child: const Icon(Icons.add),
       ),
     );
   }
